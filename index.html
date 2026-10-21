@@ -26,89 +26,32 @@
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
 	<style>
-		.card-img-top {
-			max-height: 100px;
-			object-fit: contain;
-		}
+		.card-img-top { max-height: 100px; object-fit: contain; }
+		.card-body { color: black; }
+		.card-footer { font-weight: bolder; }
+		.hall { max-height: 500px; margin: 0 auto; display: block; }
 
-		.team {
-			cursor: pointer;
-		}
+		.poptrox-popup .caption { height: 500px; overflow-y: auto; overflow-x: hidden; }
 
-		.hall {
-			max-height: 500px;
-			margin: 0 auto;
-			display: block;
-		}
-
-
-
-    .poptrox-popup {
-      background: rgba(16, 16, 16, 0.95);
-    }
-
-    .poptrox-popup .caption {
-      height: 500px;
-      overflow-y: auto;
-      overflow-x: hidden; 
-
-      .client_logo {
-        position: relative;
-        margin: 0;
-      }
-    }
-
-    
-    .pull-right {
-      float: right;
-      position: absolute;
-      margin: 10px;
-      bottom: 0;
-      right: 0;
-      background-color: #fff !important;
-    }
-
-    .client_logo {
-      height: 70px;
-      max-width: 70px;
-      object-fit: contain;
-      margin-top: 10px;
-      padding: 2px;
-      background-color: #fff !important;
-    }
-
-    .stand {
-      background-color: #fff !important;
-      color: black;
-      font-weight: bolder;
-      font-size: larger;
-      padding: 2px !important;
-      float: left;
-      text-align: center;
-      margin: 0;
-    }
-
-    .card-body {
-      color: black;
-    }
-
-    .card-footer {
-      font-weight: bolder;
-    }
+		/* show company logo in the bottom right when expanded */
+		.pull-right { float: right; position: absolute; margin: 10px; bottom: 0; right: 0; background-color: #fff !important; }
+		.client_logo { height: 70px; max-width: 70px; object-fit: contain; margin-top: 10px; padding: 2px; background-color: #fff !important; }
 	</style>
 
 </head>
 
 <body class="is-preload">
-	<img src="images/UP.png" width="350" class="up" alt="University of Pretoria" />
-	<h1 class="center"> Department of Computer Science </h1>
-	<h1 class="center"> COS 301 Capstone Projects 2026</h1>
+	<header class="hero">
+		<div class="hero-logo"><img src="images/UP.png" alt="University of Pretoria" /></div>
+		<p class="eyebrow">Department of Computer Science</p>
+		<h1 class="hero-title">COS&nbsp;301 Capstone Projects <span class="year">2026</span></h1>
+	</header>
 
 	<!-- Wrapper -->
 	<div id="wrapper">
 		<!-- Header -->
 		<header id="header">
-			<h1><a href="index.html"><strong>CS Project Day</strong> @UP</a></h1>
+			<h1><a href="index.html"><strong>CS Project Day</strong> <span class="at">@UP</span></a></h1>
 			<nav>
 				<ul>
 					<li><a href="#schedule" class="icon solid fa-calendar">Schedule</a></li>
@@ -121,38 +64,41 @@
 	
 		<div id="template" style="display: none">
 			<article class="thumb">
-				<div class="owner"><br /><br />
-					<h2 data-toggle="tooltip" data-placement="left" title="" class="client_org">Client: </h2>
-					<img src="#" alt="#" class="client" />
-				</div>
 				<a href="#" class="image logo_link">
 					<img src="#" alt="" class="logo" />
-		
 				</a>
-				
+
 				<br />
-				<h2> <span class="name"></span> <br />
-					By <span class="team"></span>
-         
-        </h2>
-         
-					<p class="chips"></p>
-				<p class="description">
-				</p>
+				<h2><span class="name"></span>
+					<span class="by">By <span class="team"></span></span>
+				</h2>
+
+				<p class="chips"></p>
+				<p class="description"></p>
 				<ul class="icons center margin-fix">
-          <li class="stand">#<span class="standNum"></span></li>
-					<li><a href="#" target="_blank" class="icon brands fa-github" data-toggle="tooltip"
+					<li class="stand">#<span class="standNum"></span></li>
+					<li><a href="#" target="_blank" rel="noopener" class="icon brands fa-github" data-toggle="tooltip"
 							data-placement="left" title="GitHub Repository"><span class="label">GitHub
 								Repository</span></a></li>
-					<li><a href="#" target="_blank" class="icon solid fa-envelope" data-toggle="tooltip"
+					<li><a href="#" target="_blank" rel="noopener" class="icon solid fa-envelope" data-toggle="tooltip"
 							data-placement="left" title="Email"><span class="label">Email</span></a>
 					</li>
-					<li><a href="#" target="_blank" class="icon solid fa-globe-africa" data-toggle="tooltip"
+					<li><a href="#" target="_blank" rel="noopener" class="icon solid fa-globe-africa" data-toggle="tooltip"
 							data-placement="left" title="Website/Deployment Link"><span class="label">Website</span></a>
 					</li>
-
+					<!-- hover over to see the project owner, lil popup instead of the entire image changing -->
+					<li class="peek">
+						<button type="button" class="logo-peek" aria-expanded="false" aria-label="Show product owner">
+							<i class="icon solid fa-building" aria-hidden="true"></i>
+						</button>
+						<div class="peek-panel" role="tooltip">
+							<span class="peek-label">Product owner</span>
+							<img src="" alt="" class="peek-logo" />
+							<span class="peek-name"></span>
+						</div>
+					</li>
 				</ul>
-        <img src="" alt="" class="client_logo pull-right" width="70"  />
+				<img src="" alt="" class="client_logo pull-right" width="70" />
 			</article>
 
 		</div>
@@ -1086,13 +1032,16 @@
 
 			template.find(".chips").html(chips);
 
-			template.find(".client").attr("alt", clientNames[[i].mentorOrg]);
-			template.find(".client_org").attr("title", clientNames[projects[i].mentorOrg]);
-			template.find(".client_org").html("Product Owner: " + clientNames[projects[i].mentorOrg]);
-			template.find(".client").attr("src", "./images/clients/" + projects[i].mentorOrg + ".png");
-      template.find(".client_logo").attr("src", "./images/clients/" + projects[i].mentorOrg + ".png");
-      template.find(".standNum").html(projects[i].no);
+			var ownerName = clientNames[projects[i].mentorOrg] || projects[i].mentorOrg;
+			var ownerLogo = "./images/clients/" + projects[i].mentorOrg + ".png";
+			template.find(".peek-name").text(ownerName);
+			template.find(".peek-logo").attr({ src: ownerLogo, alt: ownerName + " logo" });
+			template.find(".logo-peek").attr("aria-label", "Show product owner: " + ownerName);
+			template.find(".client_logo").attr({ src: ownerLogo, alt: ownerName + " logo" });
+			template.find(".standNum").html(projects[i].no);
 			$("#main").append(template.html());
+			// card position used for the fade in
+			$("#main").children().last()[0].style.setProperty("--i", i);
 
 			stands.find(".team").html(projects[i].teamName);
 			stands.find(".project").html(projects[i].pName);
@@ -1111,6 +1060,24 @@
 		function openView(x) {
 			$("#" + x).click();
 		}
+
+		// product owner logo button
+		function closePeeks() {
+			$(".peek.is-open").removeClass("is-open").find(".logo-peek").attr("aria-expanded", "false");
+		}
+		$(document).on("click", ".logo-peek", function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var $peek = $(this).closest(".peek");
+			var willOpen = !$peek.hasClass("is-open");
+			closePeeks();
+			if (willOpen) {
+				$peek.addClass("is-open");
+				$(this).attr("aria-expanded", "true");
+			}
+		});
+		$(document).on("click", closePeeks);
+		$(document).on("keyup", function (e) { if (e.key === "Escape") closePeeks(); });
 
 
 
